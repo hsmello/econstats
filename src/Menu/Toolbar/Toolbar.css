@@ -1,0 +1,10 @@
+.MuiToolbar-gutters {
+    background-color: rgb(168, 30, 30);
+    padding-left: 0px;
+}
+
+@media (min-width: 600px) {
+    .MuiToolbar-gutters {
+        padding: 0px;
+    }
+}
