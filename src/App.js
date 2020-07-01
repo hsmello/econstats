@@ -5,6 +5,7 @@ import Toolbar from './Menu/Toolbar/Toolbar';
 
 import Home from './Pages/Home/Home';
 import About from './Pages/About/About';
+import CountryAnalysis from './Pages/CountryAnalysis/CountryAnalysis';
 import GDP from './Pages/EconomicData/GDP/GDP';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       </div>
       <Route exact path='/' component={Home} />
       <Route exact path='/about' component={About} />
+      <Route exact path='/country_analysis' component={CountryAnalysis} />
       <Route exact path='/gdp' component={GDP} />
     </div>
   );

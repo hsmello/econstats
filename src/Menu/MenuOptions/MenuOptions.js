@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
+import PublicIcon from '@material-ui/icons/Public';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 
@@ -31,6 +32,16 @@ export default function MenuOptions() {
                     </ListItem>
                 </Link>
             </List>
+            <Divider />
+            <List>
+                <Link to='/country_analysis' className='button_link'>
+                    <ListItem button>
+                        <ListItemIcon> <PublicIcon /></ListItemIcon>
+                        <ListItemText>By Country</ListItemText>
+                    </ListItem>
+                </Link>
+            </List>
+
             <Divider />
             <List>
                 <Link to='/gdp' className='button_link'>

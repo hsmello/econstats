@@ -14,11 +14,13 @@ const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
+        // textAlign: 'center',
+        width: props => props.width
     },
 }));
 
 export default function MySingleSelect(props) {
-    const classes = useStyles();
+    const classes = useStyles(props);
     const [open, setOpen] = React.useState(false);
 
     const handleClose = () => {
@@ -42,9 +44,6 @@ export default function MySingleSelect(props) {
                     value={props.value}
                     onChange={(e) => props.handleChange(e)}
                 >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
                     {props.options}
                 </Select>
             </FormControl>
