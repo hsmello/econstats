@@ -3,10 +3,8 @@ import './CountryAnalysis.css'
 import SingleSelect from '../../Components/Imports/SingleSelect';
 import { csv } from 'd3';
 import MenuItem from '@material-ui/core/MenuItem';
-
-import gdppcCsv from '../../Data/gdppc.csv'
-import hdiCsv from '../../Data/hdi.csv'
-import populationCsv from '../../Data/population.csv'
+import { XAxis, YAxis, XYPlot, Highlight, MarkSeries, LineSeries } from 'react-vis';
+import countryAnalysisCsv from '../../Data/countryanalysis.csv'
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
@@ -15,20 +13,21 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 
 export default function CounryAnalysis() {
-    
+
     const firstUpdate = useRef(true);
-    const yearOptions = ['1985', '1986', '1987', '1988', '1989', '1990', '1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018']
+    const yearOptions = ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018']
     const countryOptions = ['Angola', 'Argentina', 'Australia', 'Austria', 'Belgium', 'Bolivia', 'Brazil', 'Canada', 'Chile', 'China', 'Colombia', 'Denmark', 'Ethiopia', 'Finland', 'France', 'Germany', 'Ghana', 'Greece', 'Iceland', 'India', 'Indonesia', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Luxembourg', 'Madagascar', 'Malaysia', 'Mexico', 'Morocco', 'Myanmar', 'Netherlands', 'New Zealand', 'Nigeria', 'Norway', 'Pakistan', 'Poland', 'Portugal', 'Russian Federation', 'Saudi Arabia', 'Senegal', 'South Africa', 'Spain', 'Sweden', 'Switzerland', 'Thailand', 'Tunisia', 'Turkey', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay']
+    const firstChartOptions = ['GPD per capita', 'HDI', 'Population']
 
-    const [populationData, setPopulationData] = useState([])
-    const [hdiData, setHdiData] = useState([])
-    const [gdpPcData, setGdpPcData] = useState([])
+    const [rawData, setRawData] = useState([])
+    const [firstChartData, setFirstChartData] = useState([])
 
-    const [selectedCountry, setSelectedCountry] = useState('Brazil')
-    const [selectedYear, setSelectedYear] = useState('2008')
-    const [population, setPopulation] = useState('10')
-    const [hdi, setHdi] = useState(1)
-    const [gdppc, setGdppc] = useState('10350')
+    const [selectedCountry, setSelectedCountry] = useState(countryOptions[Math.floor(Math.random() * countryOptions.length)])
+    const [selectedYear, setSelectedYear] = useState(yearOptions[Math.floor(Math.random() * yearOptions.length)])
+    const [population, setPopulation] = useState()
+    const [hdi, setHdi] = useState()
+    const [gdppc, setGdppc] = useState('0')
+    const [firstChartOption, setFirstChartOption] = useState(firstChartOptions[Math.floor(Math.random() * firstChartOptions.length)])
 
     function onYearChange(e) {
         setSelectedYear(e.target.value)
@@ -36,36 +35,66 @@ export default function CounryAnalysis() {
     function onCountryChange(e) {
         setSelectedCountry(e.target.value)
     }
+    function onFirstChartChange(e) {
+        setFirstChartOption(e.target.value)
+    }
 
     useEffect(() => {
-        // csv(gdppcCsv).then(csvData => {
-        //     setGdpPcData(csvData)
-        // });
-        // csv(hdiCsv).then(csvData => {
-        //     setHdiData(csvData)
-        // });
-        csv(populationCsv).then(csvData => {
-            setPopulationData(csvData)
-        });
-    })
+        async function csvRead() {
+            let dataRead = await csv(countryAnalysisCsv)
+            setRawData(dataRead)
+        }
+        csvRead();
+    }, [1])
 
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false
             return;
         } else {
-            var index = countryOptions.indexOf(selectedCountry)
-            setPopulation(populationData[index][selectedYear])
-            console.log(populationData[index])
+            firstChartData.splice(0, firstChartData.length)
+            for (var i = 0; i < rawData.length; i++) {
+                if (rawData[i].Country === selectedCountry) {
+                    if (rawData[i].Index === 'gdppc') {
+                        setGdppc(rawData[i][selectedYear])
+                    }
+                    if (rawData[i].Index === 'population') {
+                        setPopulation(rawData[i][selectedYear])
+                    }
+                    if (rawData[i].Index === 'hdi') {
+                        setHdi(rawData[i][selectedYear])
+                    }
+
+                    for (var year = 2000; year < 2019; year++) {
+
+                        let newYearValue = Object.create(null)
+                        newYearValue.x = year
+                        newYearValue.y = rawData[i][year]
+                        if (rawData[i].Index === 'gdppc' && firstChartOption === 'GPD per capita') {
+                            firstChartData.push(newYearValue)
+                        }
+                        if (rawData[i].Index === 'population' && firstChartOption === 'Population') {
+                            firstChartData.push(newYearValue)
+                            console.log('ssdasdas')
+                        }
+                        if (rawData[i].Index === 'hdi' && firstChartOption === 'HDI') {
+                            firstChartData.push(newYearValue)
+                        }
+                        setFirstChartData([...firstChartData])
+                    }
+                }
+            }
+            console.log(firstChartData)
+            console.log(rawData)
         }
-    }, [selectedCountry, selectedYear])
+    }, [rawData, selectedCountry, selectedYear, firstChartOption])
 
     return (
         <div className='ca_page'>
             <div className="ca_header">
                 <div className="ca_country_title bg_shadow">
                     <SingleSelect
-                        handleChange={(e) => onCountryChange(e)} 
+                        handleChange={(e) => onCountryChange(e)}
                         label='Country'
                         width='220px'
                         value={selectedCountry}
@@ -78,7 +107,7 @@ export default function CounryAnalysis() {
                 </div>
                 <div className="ca_header_options bg_shadow">
                     <SingleSelect
-                        handleChange={(e) => onYearChange(e)} 
+                        handleChange={(e) => onYearChange(e)}
                         label='Year'
                         value={selectedYear}
                         options={yearOptions.map((year) => (
@@ -101,7 +130,7 @@ export default function CounryAnalysis() {
                                 Population
                             </div>
                             <div className="card_backgound_top_body">
-                                {(population/1000000).toFixed(2)} M
+                                {population} M
                             </div>
                         </div>
                         <div className="card_background_body">
@@ -120,20 +149,19 @@ export default function CounryAnalysis() {
                                 HDI
                             </div>
                             <div className="card_backgound_top_body">
-                                {/* {hdi} */}
-                                1
+                                {hdi}
                             </div>
                         </div>
                         <div className="card_background_body">
                             {hdi > 0.74 ?
-                            'Above the selected group average of 0.74':
-                            'Below the selected group average of 0.74'}
+                                'Above the selected group average of 0.74' :
+                                'Below the selected group average of 0.74'}
                         </div>
                     </div>
                     <div className="second_front ca_card_front front_shadow">
                         {hdi > 0.74 ?
-                        <InsertEmoticonIcon fontSize='inherit' /> :
-                        <SentimentVeryDissatisfiedIcon fontSize='inherit' />}
+                            <InsertEmoticonIcon fontSize='inherit' /> :
+                            <SentimentVeryDissatisfiedIcon fontSize='inherit' />}
                     </div>
                 </div>
 
@@ -144,8 +172,8 @@ export default function CounryAnalysis() {
                                 GDP per capita
                             </div>
                             <div className="card_backgound_top_body">
-                                {/* $ {gdppc.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} */}
-                                10,234
+                                {/* $ {formatNumber(gdppc)} */}
+                                $ {gdppc.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
                             </div>
                         </div>
                         <div className="card_background_body">
@@ -158,13 +186,36 @@ export default function CounryAnalysis() {
                 </div>
             </div>
 
+            {/* CHARTS  */}
+
             <div className="ca_charts">
                 <div className="ca_first_chart_wrap">
                     <div className="first_chart_background bg_shadow">
+                        <div className="first_chart_background_body">
 
+                            <SingleSelect
+                                handleChange={(e) => onFirstChartChange(e)}
+                                label='Options'
+                                width='200px'
+                                value={firstChartOption}
+                                options={firstChartOptions.map((option) => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            />
+                        </div>
                     </div>
                     <div className="ca_first_chart front_shadow">
-
+                        <XYPlot
+                            height={300}
+                            width={500}
+                            xType='ordinal'
+                        >
+                            <LineSeries animation='noWobble' data={firstChartData} color='white' />
+                            <XAxis color='red' />
+                            <YAxis />
+                        </XYPlot>
                     </div>
                 </div>
                 <div className="ca_second_chart_wrap">
@@ -172,7 +223,7 @@ export default function CounryAnalysis() {
 
                     </div>
                     <div className="ca_second_chart front_shadow">
-                        
+
                     </div>
 
                 </div>
