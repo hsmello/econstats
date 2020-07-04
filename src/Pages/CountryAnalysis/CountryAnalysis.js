@@ -3,7 +3,8 @@ import './CountryAnalysis.css'
 import SingleSelect from '../../Components/Imports/SingleSelect';
 import { csv } from 'd3';
 import MenuItem from '@material-ui/core/MenuItem';
-import { XAxis, YAxis, XYPlot, Highlight, MarkSeries, LineSeries } from 'react-vis';
+
+import Chart from '../../Components/AreaChart/AreaChart'
 import countryAnalysisCsv from '../../Data/countryanalysis.csv'
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -66,26 +67,20 @@ export default function CounryAnalysis() {
                     }
 
                     for (var year = 2000; year < 2019; year++) {
-
-                        let newYearValue = Object.create(null)
-                        newYearValue.x = year
-                        newYearValue.y = rawData[i][year]
                         if (rawData[i].Index === 'gdppc' && firstChartOption === 'GPD per capita') {
-                            firstChartData.push(newYearValue)
+                            firstChartData.push(Number(rawData[i][year]))
                         }
                         if (rawData[i].Index === 'population' && firstChartOption === 'Population') {
-                            firstChartData.push(newYearValue)
+                            firstChartData.push(Number(rawData[i][year]))
                             console.log('ssdasdas')
                         }
                         if (rawData[i].Index === 'hdi' && firstChartOption === 'HDI') {
-                            firstChartData.push(newYearValue)
+                            firstChartData.push(Number(rawData[i][year]))
                         }
                         setFirstChartData([...firstChartData])
                     }
                 }
             }
-            console.log(firstChartData)
-            console.log(rawData)
         }
     }, [rawData, selectedCountry, selectedYear, firstChartOption])
 
@@ -154,8 +149,8 @@ export default function CounryAnalysis() {
                         </div>
                         <div className="card_background_body">
                             {hdi > 0.74 ?
-                                'Above the selected group average of 0.74' :
-                                'Below the selected group average of 0.74'}
+                                'Above' :
+                                'Below'} this group's all time average (0.74)
                         </div>
                     </div>
                     <div className="second_front ca_card_front front_shadow">
@@ -207,15 +202,15 @@ export default function CounryAnalysis() {
                         </div>
                     </div>
                     <div className="ca_first_chart front_shadow">
-                        <XYPlot
-                            height={300}
-                            width={500}
-                            xType='ordinal'
-                        >
-                            <LineSeries animation='noWobble' data={firstChartData} color='white' />
-                            <XAxis color='red' />
-                            <YAxis />
-                        </XYPlot>
+                                        
+                        <Chart 
+                            data={firstChartData}
+                            xAxis={yearOptions}
+                            height='295px'
+                            type='area'
+                            color='white'
+                        />
+
                     </div>
                 </div>
                 <div className="ca_second_chart_wrap">
