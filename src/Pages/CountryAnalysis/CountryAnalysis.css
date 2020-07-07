@@ -1,5 +1,5 @@
 .ca_page {
-    width: 70%;
+    width: 1350px;
     margin: 0px auto;
 }
 
@@ -12,7 +12,7 @@
 
 .ca_country_title {
     height: 80%;
-    width: 250px;
+    width: 270px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,13 +23,19 @@
 
 .ca_header_options {
     height: 80%;
-    width: 800px;
+    width: 1050px;
     display: flex;
     margin-right: 0px;
     margin-left: auto;
     align-items: center;
     border-radius: 5px;
     background-color: white;
+}
+.ca_page_title {
+    width: 780px;
+    margin: 0px auto 0px 20px;
+    font-size: 18px;
+    font-weight: 500;
 }
 .ca_header_year {
     height: 65px;
@@ -52,80 +58,20 @@
     margin: 0px 0px 30px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-.ca_wrap_card {
-    height: 180px;
-    width: 320px;
-    margin: 0px 20px;
-    position: relative;
-}
 .ca_first {
     margin-left: 0;
     margin-right: auto;
 }
-.ca_second {
+.ca_second,
+.ca_third {
     margin: 0px auto;
 }
-.ca_third {
+.ca_fourth {
     margin-left: auto;
     margin-right: 0;
-}
-.ca_card_background {
-    width: 100%;
-    height: 75%;
-    position: absolute;
-    bottom: 0;
-    border-radius: 5px;
-    background-color: white;
-}
-.card_background_top {
-    width: 160px;
-    height: 60%;
-    margin-left: auto;
-    margin-right: 10px;
-}
-.card_backgound_top_title {
-    height: 30%;
-    color: grey;
-    margin-top: 5px;
-}
-.card_backgound_top_body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70%;
-    font-size: 30px;
-    font-weight: 600;
-}
-.card_background_body {
-    height: 28%;
-    width: 80%;
-    font-size: 12px;
-    margin: 10px auto 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top: solid rgb(173, 173, 173) 1px;
-}
-
-.ca_card_front {
-    height: 110px;
-    width: 110px;
-    /* position: absolute; */
-    margin-left: 20px;
-    top: 20px;
-    border-radius: 5px;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 60px;
-    color: white;
-
-    background-color: violet;
-    position:relative;
 }
 
 .first_front {
@@ -137,6 +83,9 @@
 .third_front {
     background: linear-gradient(32deg, rgb(6, 179, 170) 0%, rgb(78, 189, 204) 100%);
 }
+.fourth_front {
+    background: linear-gradient(32deg, rgba(1,92,146,1) 0%, rgba(45,130,181,1) 100%);
+}
 
 .ca_charts {
     height: 500px;
@@ -147,6 +96,11 @@
     width: 60%;
     height: 100%;
     position: relative;
+    float:left;
+}
+.chart_inner {
+    position: absolute;
+    width: 100%;
 }
 .first_chart_background {
     background-color: white;
@@ -193,4 +147,89 @@
     margin-left: 5%;
     border-radius: 5px;
     background: linear-gradient(32deg, rgba(217,113,158,1) 0%, rgb(197, 164, 121) 100%);
+}
+
+
+@media (max-width: 769px) {
+    .ca_page {
+        max-width: 95vw;
+    }
+    .ca_header {
+        display: block;
+        margin: 20px auto;
+        justify-content: center;
+    }
+    .ca_country_title {
+        width: 100%;
+        margin: 0px auto;
+    }
+    .ca_header_options {
+        width: 100%;
+        margin: 15px auto;
+    }
+    .ca_page_title {
+        width: 100%;
+        margin: 0px auto;
+        font-size: 14px;
+        text-align: center;
+        padding: 0px 5px;
+    }
+    .ca_header_year {
+        display: none;
+    }
+    .ca_cards {
+        display: block;
+        margin-top: 80px;
+    }
+    .ca_first, .ca_third, .ca_second, .ca_fourth {
+        margin: 0px auto;
+    }
+
+    .ca_charts {
+        flex-direction: column;
+        height: 1000px;
+    }
+    .ca_first_chart_wrap, .ca_first_chart_wrap, .ca_second_chart_wrap {
+        width: 100%;
+    }
+    .ca_second_chart_wrap {
+        margin: 30px 0px;
+    }
+
+}
+
+@media (max-width: 1349px) and (min-width: 770px) {
+    .ca_header_options {
+        width: 65%;
+    }
+    .ca_page_title {
+        width: 100%;
+        font-size: 15px;
+        text-align: center;
+    }
+    .ca_header_year {
+        display: none;
+    }
+    .ca_page {
+        width: 770px;
+        padding: 0px 10px;
+    }
+    .ca_cards {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+    .ca_first, .ca_third {
+        margin-left: 0px;
+        margin-right: auto;
+    }
+    .ca_second, .ca_fourth {
+        margin-left: auto;
+        margin-right: 0px;
+    }
+    .ca_charts {
+        display: block  ;
+    }
+    .ca_first_chart_wrap {
+        width: 100%;
+    }
 }

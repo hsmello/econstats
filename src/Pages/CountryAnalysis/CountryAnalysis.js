@@ -3,6 +3,7 @@ import './CountryAnalysis.css'
 import SingleSelect from '../../Components/Imports/SingleSelect';
 import { csv } from 'd3';
 import MenuItem from '@material-ui/core/MenuItem';
+import DashboardCard from '../../Components/DashboardCard/DashboardCard'
 
 import Chart from '../../Components/AreaChart/AreaChart'
 import countryAnalysisCsv from '../../Data/countryanalysis.csv'
@@ -101,6 +102,11 @@ export default function CounryAnalysis() {
                     />
                 </div>
                 <div className="ca_header_options bg_shadow">
+
+                    <div className="ca_page_title">
+                        Welcome to the Country Analysis Dashboard!
+                    </div>
+
                     <SingleSelect
                         handleChange={(e) => onYearChange(e)}
                         label='Year'
@@ -118,68 +124,43 @@ export default function CounryAnalysis() {
             </div>
 
             <div className="ca_cards">
-                <div className="ca_first ca_wrap_card">
-                    <div className="ca_card_background bg_shadow">
-                        <div className="card_background_top">
-                            <div className="card_backgound_top_title">
-                                Population
-                            </div>
-                            <div className="card_backgound_top_body">
-                                {population} M
-                            </div>
-                        </div>
-                        <div className="card_background_body">
-                            asdasd
-                        </div>
-                    </div>
-                    <div className="first_front ca_card_front front_shadow">
-                        <AccountCircleIcon fontSize='inherit' />
-                    </div>
-                </div>
+                <DashboardCard
+                    wrapClass='ca_first'
+                    frontClass='first_front'
+                    title='Population'
+                    output={population + ' M'}
+                    note='this is the note'
+                    cardIcon={<AccountCircleIcon fontSize='inherit' />}
+                />
+                <DashboardCard
+                    wrapClass='ca_second'
+                    frontClass='second_front'
+                    title='HDI'
+                    output={hdi}
+                    note='this is the note'
+                    cardIcon={hdi > 0.74 ?
+                        <InsertEmoticonIcon fontSize='inherit' /> :
+                        <SentimentVeryDissatisfiedIcon fontSize='inherit' />}
+                />
+                <DashboardCard
+                    wrapClass='ca_third'
+                    frontClass='third_front'
+                    title='GDP per capita'
+                    output={'$ ' + gdppc.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                    note='this is the note'
+                    cardIcon={<AttachMoneyIcon fontSize='inherit' />}
+                />
+                <DashboardCard
+                    wrapClass='ca_fourth'
+                    frontClass='fourth_front'
+                    title='FOUR'
+                    output={hdi}
+                    note='this is the note'
+                    cardIcon={<AttachMoneyIcon fontSize='inherit' />}
+                />
 
-                <div className="ca_second ca_wrap_card">
-                    <div className="ca_card_background bg_shadow">
-                        <div className="card_background_top">
-                            <div className="card_backgound_top_title">
-                                HDI
-                            </div>
-                            <div className="card_backgound_top_body">
-                                {hdi}
-                            </div>
-                        </div>
-                        <div className="card_background_body">
-                            {hdi > 0.74 ?
-                                'Above' :
-                                'Below'} this group's all time average (0.74)
-                        </div>
-                    </div>
-                    <div className="second_front ca_card_front front_shadow">
-                        {hdi > 0.74 ?
-                            <InsertEmoticonIcon fontSize='inherit' /> :
-                            <SentimentVeryDissatisfiedIcon fontSize='inherit' />}
-                    </div>
-                </div>
-
-                <div className="ca_third ca_wrap_card">
-                    <div className="ca_card_background bg_shadow">
-                        <div className="card_background_top">
-                            <div className="card_backgound_top_title">
-                                GDP per capita
-                            </div>
-                            <div className="card_backgound_top_body">
-                                {/* $ {formatNumber(gdppc)} */}
-                                $ {gdppc.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
-                            </div>
-                        </div>
-                        <div className="card_background_body">
-                            asdasd
-                        </div>
-                    </div>
-                    <div className="third_front ca_card_front front_shadow">
-                        <AttachMoneyIcon fontSize='inherit' />
-                    </div>
-                </div>
             </div>
+
 
             {/* CHARTS  */}
 
@@ -202,14 +183,16 @@ export default function CounryAnalysis() {
                         </div>
                     </div>
                     <div className="ca_first_chart front_shadow">
-                                        
-                        <Chart 
-                            data={firstChartData}
-                            xAxis={yearOptions}
-                            height='295px'
-                            type='area'
-                            color='white'
-                        />
+                        <div className="chart_inner">
+                            <Chart
+                                data={firstChartData}
+                                xAxis={yearOptions}
+                                height='295px'
+                                // width='290'
+                                type='area'
+                                color='white'
+                            />
+                        </div>
 
                     </div>
                 </div>

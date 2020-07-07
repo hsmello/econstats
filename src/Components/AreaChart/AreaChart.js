@@ -1,12 +1,12 @@
 import React from 'react';
-import Highcharts, { chart, ColorAxis } from 'highcharts';
+import Highcharts from 'highcharts';
 import HighchartReact from 'highcharts-react-official';
 import drilldown from 'highcharts/modules/drilldown'
 
 export default function AreaChart(props) {
     drilldown(Highcharts)
 
-    const options: Highcharts.Options = {
+    const options = {
         title: {
             text: props.title
         },
@@ -27,15 +27,14 @@ export default function AreaChart(props) {
             backgroundColor: 'transparent'
         },
         colorAxis: {
-            maxColor: 'white',
-            gridLineColor: 'black',
+            // maxColor: 'white',
+            // gridLineColor: 'black',
         },
         legend: false
-
-
     };
 
     return (
+        
         <div id="container">
             <HighchartReact
                 highcharts={Highcharts}
