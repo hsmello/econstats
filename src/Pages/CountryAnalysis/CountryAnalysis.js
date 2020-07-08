@@ -12,6 +12,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 
 
 export default function CounryAnalysis() {
@@ -19,7 +20,7 @@ export default function CounryAnalysis() {
     const firstUpdate = useRef(true);
     const yearOptions = ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018']
     const countryOptions = ['Angola', 'Argentina', 'Australia', 'Austria', 'Belgium', 'Bolivia', 'Brazil', 'Canada', 'Chile', 'China', 'Colombia', 'Denmark', 'Ethiopia', 'Finland', 'France', 'Germany', 'Ghana', 'Greece', 'Iceland', 'India', 'Indonesia', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Luxembourg', 'Madagascar', 'Malaysia', 'Mexico', 'Morocco', 'Myanmar', 'Netherlands', 'New Zealand', 'Nigeria', 'Norway', 'Pakistan', 'Poland', 'Portugal', 'Russian Federation', 'Saudi Arabia', 'Senegal', 'South Africa', 'Spain', 'Sweden', 'Switzerland', 'Thailand', 'Tunisia', 'Turkey', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay']
-    const firstChartOptions = ['GPD per capita', 'HDI', 'Population']
+    const firstChartOptions = ['GPD per capita', 'HDI', 'Life Expectancy', 'Population']
 
     const [rawData, setRawData] = useState([])
     const [firstChartData, setFirstChartData] = useState([])
@@ -29,6 +30,7 @@ export default function CounryAnalysis() {
     const [population, setPopulation] = useState()
     const [hdi, setHdi] = useState()
     const [gdppc, setGdppc] = useState('0')
+    const [lifeExp, setLifeExp] = useState('0')
     const [firstChartOption, setFirstChartOption] = useState(firstChartOptions[Math.floor(Math.random() * firstChartOptions.length)])
 
     function onYearChange(e) {
@@ -66,6 +68,9 @@ export default function CounryAnalysis() {
                     if (rawData[i].Index === 'hdi') {
                         setHdi(rawData[i][selectedYear])
                     }
+                    if (rawData[i].Index === 'lifeexp') {
+                        setLifeExp(rawData[i][selectedYear])
+                    }
 
                     for (var year = 2000; year < 2019; year++) {
                         if (rawData[i].Index === 'gdppc' && firstChartOption === 'GPD per capita') {
@@ -76,6 +81,9 @@ export default function CounryAnalysis() {
                             console.log('ssdasdas')
                         }
                         if (rawData[i].Index === 'hdi' && firstChartOption === 'HDI') {
+                            firstChartData.push(Number(rawData[i][year]))
+                        }
+                        if (rawData[i].Index === 'lifeexp' && firstChartOption === 'Life Expectancy') {
                             firstChartData.push(Number(rawData[i][year]))
                         }
                         setFirstChartData([...firstChartData])
@@ -153,10 +161,10 @@ export default function CounryAnalysis() {
                 <DashboardCard
                     wrapClass='ca_fourth'
                     frontClass='fourth_front'
-                    title='FOUR'
-                    output={hdi}
+                    title='Life Expectancy'
+                    output={lifeExp + ' years'}
                     note='this is the note'
-                    cardIcon={<AttachMoneyIcon fontSize='inherit' />}
+                    cardIcon={<DateRangeIcon fontSize='inherit' />}
                 />
 
             </div>
