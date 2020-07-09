@@ -1,13 +1,15 @@
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
-import './CountryAnalysis.css'
+import './CountryAnalysis.css';
 import SingleSelect from '../../Components/Imports/SingleSelect';
 import { csv } from 'd3';
 import MenuItem from '@material-ui/core/MenuItem';
-import DashboardCard from '../../Components/DashboardCard/DashboardCard'
+import DashboardCard from '../../Components/DashboardCard/DashboardCard';
 
-import Chart from '../../Components/AreaChart/AreaChart'
-import countryAnalysisCsv from '../../Data/countryanalysis.csv'
+import Chart from '../../Components/AreaChart/AreaChart';
+import countryAnalysisCsv from '../../Data/countryanalysis.csv';
+import axios from 'axios';
 
+import Flag from 'react-world-flags';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
@@ -17,9 +19,11 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 
 export default function CounryAnalysis() {
 
-    const firstUpdate = useRef(true);
+    const firstUpdateCsv = useRef(true);
+    const firstUpdateApi = useRef(true);
     const yearOptions = ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018']
     const countryOptions = ['Angola', 'Argentina', 'Australia', 'Austria', 'Belgium', 'Bolivia', 'Brazil', 'Canada', 'Chile', 'China', 'Colombia', 'Denmark', 'Ethiopia', 'Finland', 'France', 'Germany', 'Ghana', 'Greece', 'Iceland', 'India', 'Indonesia', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Luxembourg', 'Madagascar', 'Malaysia', 'Mexico', 'Morocco', 'Myanmar', 'Netherlands', 'New Zealand', 'Nigeria', 'Norway', 'Pakistan', 'Poland', 'Portugal', 'Russian Federation', 'Saudi Arabia', 'Senegal', 'South Africa', 'Spain', 'Sweden', 'Switzerland', 'Thailand', 'Tunisia', 'Turkey', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay']
+    const countryOptionsIso = ['ao', 'ar', 'au', 'at', 'be', 'bo', 'br', 'ca', 'cl', 'cn', 'co', 'dk', 'et', 'fi', 'fr', 'de', 'gh', 'gr', 'is', 'in', 'id', 'iq', 'ie', 'il', 'it', 'jm', 'jp', 'lu', 'mg', 'my', 'mx', 'ma', 'mm', 'nl', 'nz', 'ng', 'no', 'pk', 'pl', 'pt', 'ru', 'sa', 'sn', 'za', 'es', 'se', 'ch', 'th', 'tn', 'tr', 'ua', 'ae', 'gb', 'us', 'uy']
     const firstChartOptions = ['GPD per capita', 'HDI', 'Life Expectancy', 'Population']
 
     const [rawData, setRawData] = useState([])
@@ -32,6 +36,7 @@ export default function CounryAnalysis() {
     const [gdppc, setGdppc] = useState('0')
     const [lifeExp, setLifeExp] = useState('0')
     const [firstChartOption, setFirstChartOption] = useState(firstChartOptions[Math.floor(Math.random() * firstChartOptions.length)])
+    const [countryInfo, setCountryInfo] = useState({})
 
     function onYearChange(e) {
         setSelectedYear(e.target.value)
@@ -44,6 +49,24 @@ export default function CounryAnalysis() {
     }
 
     useEffect(() => {
+        if (firstUpdateApi.current) {
+            firstUpdateApi.current = false
+            return;
+        } else {
+            async function getAPIData() {
+                try {
+                    const countryCode = countryOptionsIso[countryOptions.indexOf(selectedCountry)]
+                    const response = await axios.get('http://api.worldbank.org/v2/country/' + countryCode + '?format=json');
+                    setCountryInfo(response.data[1][0])
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            getAPIData();
+        }
+    }, [rawData, selectedCountry])
+
+    useEffect(() => {
         async function csvRead() {
             let dataRead = await csv(countryAnalysisCsv)
             setRawData(dataRead)
@@ -52,8 +75,8 @@ export default function CounryAnalysis() {
     }, [1])
 
     useLayoutEffect(() => {
-        if (firstUpdate.current) {
-            firstUpdate.current = false
+        if (firstUpdateCsv.current) {
+            firstUpdateCsv.current = false
             return;
         } else {
             firstChartData.splice(0, firstChartData.length)
@@ -78,7 +101,6 @@ export default function CounryAnalysis() {
                         }
                         if (rawData[i].Index === 'population' && firstChartOption === 'Population') {
                             firstChartData.push(Number(rawData[i][year]))
-                            console.log('ssdasdas')
                         }
                         if (rawData[i].Index === 'hdi' && firstChartOption === 'HDI') {
                             firstChartData.push(Number(rawData[i][year]))
@@ -135,17 +157,17 @@ export default function CounryAnalysis() {
                 <DashboardCard
                     wrapClass='ca_first'
                     frontClass='first_front'
-                    title='Population'
-                    output={population + ' M'}
+                    title='GDP per capita'
+                    output={'$ ' + gdppc.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
                     note='this is the note'
-                    cardIcon={<AccountCircleIcon fontSize='inherit' />}
+                    cardIcon={<AttachMoneyIcon fontSize='inherit' />}
                 />
                 <DashboardCard
                     wrapClass='ca_second'
                     frontClass='second_front'
                     title='HDI'
                     output={hdi}
-                    note='this is the note'
+                    note={hdi > 0.74 ? `Above this group's average` : `Below this group's average`}
                     cardIcon={hdi > 0.74 ?
                         <InsertEmoticonIcon fontSize='inherit' /> :
                         <SentimentVeryDissatisfiedIcon fontSize='inherit' />}
@@ -153,18 +175,18 @@ export default function CounryAnalysis() {
                 <DashboardCard
                     wrapClass='ca_third'
                     frontClass='third_front'
-                    title='GDP per capita'
-                    output={'$ ' + gdppc.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
-                    note='this is the note'
-                    cardIcon={<AttachMoneyIcon fontSize='inherit' />}
+                    title='Life Expectancy'
+                    output={lifeExp + ' years'}
+                    note='Life expectancy from the birth'
+                    cardIcon={<DateRangeIcon fontSize='inherit' />}
                 />
                 <DashboardCard
                     wrapClass='ca_fourth'
                     frontClass='fourth_front'
-                    title='Life Expectancy'
-                    output={lifeExp + ' years'}
-                    note='this is the note'
-                    cardIcon={<DateRangeIcon fontSize='inherit' />}
+                    title='Population'
+                    output={population + ' M'}
+                    note='Total population of a given year'
+                    cardIcon={<AccountCircleIcon fontSize='inherit' />}
                 />
 
             </div>
@@ -206,9 +228,33 @@ export default function CounryAnalysis() {
                 </div>
                 <div className="ca_second_chart_wrap">
                     <div className="second_chart_bacgorund bg_shadow">
-
+                        <div className="backgound_body">
+                            Country Details
+                        </div>
                     </div>
                     <div className="ca_second_chart front_shadow">
+                        {countryInfo.region ?
+
+                            <div className="ca_second_chart_text">
+                                <div className='flag_container'>
+                                    <Flag code={countryInfo.id} height="64" />
+                                </div>
+                                <div className='country_details'>
+
+                                    Country Official name: {countryInfo.name} <br />
+                                    Capital: {countryInfo.capitalCity} <br />
+                                    Located in: {countryInfo.region.value} <br />
+                                    Considered to be {countryInfo.incomeLevel.value} <br />
+
+                                </div>
+                            </div>
+
+                            :
+                            countryInfo.id
+
+                        }
+
+                        {console.log(countryInfo)}
 
                     </div>
 

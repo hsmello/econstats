@@ -16,6 +16,18 @@
     display: flex;
 }
 
+.ab_first_block_body,
+.ab_second_block_body,
+.ab_third_block_body {
+    width: 90%;
+    height: 100%;
+    text-align: justify;
+    /* background-color: tomato; */
+    margin-top: 85px;
+    padding: 0px 5%;
+    font-size: 18px;
+}
+
 .ab_first_block {
     width: 40%;
     height: 500px;
@@ -26,6 +38,7 @@
     width: 100%;
     position: absolute;
     bottom: 0;
+    overflow: hidden;
 }
 .ab_first_block_front {
     width: 200px;
@@ -55,6 +68,7 @@
     bottom: 0px;
     height: 91.5%;
     width: 100%;
+    overflow: hidden;
 }
 .ab_second_block_front {
     width: 220px;
@@ -64,6 +78,7 @@
     margin: 0px auto;
     background: linear-gradient(32deg, rgb(6, 179, 170) 0%, rgb(78, 189, 204) 100%);
 }
+
 
 .ab_third_block {
     height: 180px;
@@ -76,6 +91,7 @@
     bottom: 0px;
     height: 80%;
     width: 100%;
+    overflow: hidden;
 }
 .ab_third_block_front {
     height: 80px;

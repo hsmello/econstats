@@ -148,6 +148,30 @@
     border-radius: 5px;
     background: linear-gradient(32deg, rgba(217,113,158,1) 0%, rgb(197, 164, 121) 100%);
 }
+.backgound_body{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 60px;
+    font-size: 30px;
+    font-weight: 600;
+}
+.ca_second_chart_text {
+    display: block;
+    padding: 20px;
+    position: relative;
+}
+.country_details {
+    margin: 40px 0px 0px 20px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 200%;
+    height: 262px;   
+}
+
+
 
 
 @media (max-width: 769px) {
@@ -195,12 +219,15 @@
     .ca_second_chart_wrap {
         margin: 30px 0px;
     }
+    .country_details {
+        margin: 40px 0px 0px 120px;
+    }
 
 }
 
 @media (max-width: 1349px) and (min-width: 770px) {
     .ca_header_options {
-        width: 65%;
+        width: 63%;
     }
     .ca_page_title {
         width: 100%;
@@ -227,9 +254,16 @@
         margin-right: 0px;
     }
     .ca_charts {
-        display: block  ;
+        flex-direction: column;
+        height: 1000px;
     }
-    .ca_first_chart_wrap {
+    .ca_first_chart_wrap, .ca_first_chart_wrap, .ca_second_chart_wrap {
         width: 100%;
+    }
+    .ca_second_chart_wrap {
+        margin: 30px 0px;
+    }
+    .country_details {
+        margin: 40px 0px 0px 120px;
     }
 }
