@@ -56,7 +56,7 @@ export default function CounryAnalysis() {
             async function getAPIData() {
                 try {
                     const countryCode = countryOptionsIso[countryOptions.indexOf(selectedCountry)]
-                    const response = await axios.get('http://api.worldbank.org/v2/country/' + countryCode + '?format=json');
+                    const response = await axios.get('https://api.worldbank.org/v2/country/' + countryCode + '?format=json');
                     setCountryInfo(response.data[1][0])
                 } catch (error) {
                     console.log(error)
