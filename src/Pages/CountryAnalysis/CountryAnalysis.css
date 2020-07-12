@@ -111,7 +111,11 @@
     border-radius: 5px;
 }
 .first_chart_background_body {
-    margin-top: 320px;
+    margin-top: 330px;
+    height: 155px;
+    text-align: center;
+    line-height: 300%;
+    font-weight: 600;
 }
 .ca_first_chart {
     position: absolute;
@@ -219,10 +223,6 @@
     .ca_second_chart_wrap {
         margin: 30px 0px;
     }
-    .country_details {
-        margin: 40px 0px 0px 120px;
-    }
-
 }
 
 @media (max-width: 1349px) and (min-width: 770px) {

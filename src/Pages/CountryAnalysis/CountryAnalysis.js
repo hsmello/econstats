@@ -159,7 +159,7 @@ export default function CounryAnalysis() {
                     frontClass='first_front'
                     title='GDP per capita'
                     output={'$ ' + gdppc.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
-                    note='this is the note'
+                    note='Total output divided by population'
                     cardIcon={<AttachMoneyIcon fontSize='inherit' />}
                 />
                 <DashboardCard
@@ -177,7 +177,7 @@ export default function CounryAnalysis() {
                     frontClass='third_front'
                     title='Life Expectancy'
                     output={lifeExp + ' years'}
-                    note='Life expectancy from the birth'
+                    note='Life expectancy from birth'
                     cardIcon={<DateRangeIcon fontSize='inherit' />}
                 />
                 <DashboardCard
@@ -198,10 +198,10 @@ export default function CounryAnalysis() {
                 <div className="ca_first_chart_wrap">
                     <div className="first_chart_background bg_shadow">
                         <div className="first_chart_background_body">
-
+                            Please choose the index you want display
                             <SingleSelect
                                 handleChange={(e) => onFirstChartChange(e)}
-                                label='Options'
+                                label='Chart Index Options'
                                 width='200px'
                                 value={firstChartOption}
                                 options={firstChartOptions.map((option) => (
@@ -234,7 +234,6 @@ export default function CounryAnalysis() {
                     </div>
                     <div className="ca_second_chart front_shadow">
                         {countryInfo.region ?
-
                             <div className="ca_second_chart_text">
                                 <div className='flag_container'>
                                     <Flag code={countryInfo.id} height="64" />
@@ -248,19 +247,12 @@ export default function CounryAnalysis() {
 
                                 </div>
                             </div>
-
                             :
                             countryInfo.id
-
                         }
-
-                        {console.log(countryInfo)}
-
                     </div>
-
                 </div>
             </div>
-
         </div>
     )
 }
