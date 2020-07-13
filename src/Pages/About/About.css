@@ -110,12 +110,21 @@
     .ab_first_block, .second_leg, .ab_second_block, .ab_third_block {
         width: 100%;
     }
+    .ab_first_block {
+        height: 430px;
+    }
+    .second_leg {
+        height: 580px;
+    }
+    .ab_second_block {
+        height: 370px;
+    }
     .ab_first_block, .ab_second_block {
         margin: 30px 0px;
     }
 }
 
-@media (max-width: 1349px) and (min-width: 770px) {
+@media (max-width: 1399px) and (min-width: 770px) {
     .about_body {
         width: 90%;
     }

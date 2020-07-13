@@ -41,10 +41,10 @@ export default function About() {
 
                             <div className="ab_second_block_body">
                                 <p>
-                                    The HDI index was taken from the United Nations Development Programme, more specifically the Human Development Reports. This data can be accessed online through <a href="http://hdr.undp.org/en/data" target="blank" >here</a>
+                                    The HDI index is from the UN Development Programme, more specifically the Human Development Reports. It can be accessed online through <a href="http://hdr.undp.org/en/data" target="blank" >here</a>
                                 </p>
                                 <p>
-                                    All the other indexes (GDP, GDP per capita, Population, Life Expectancy and Inflation) were taken from the World Bank Open Data <a href="https://data.worldbank.org/" target="blank">website</a> and API.
+                                    All the other indexes are from the World Bank Open Data <a href="https://data.worldbank.org/" target="blank">website</a> and API.
                                 </p>
 
 
@@ -59,7 +59,7 @@ export default function About() {
                         </div>
                         <div className="ab_third_block_bg bg_shadow bg_common">
                             <div className="ab_third_block_body">
-                                Hello! I am Hugo and I've been lerning somethings about web development. You can find my github page here and my website here. See you!
+                                {/* Hello! I am Hugo and I've been lerning somethings about web development. You can find my github page here and my website here. See you! */}
                             </div>
                         </div>
                     </div>

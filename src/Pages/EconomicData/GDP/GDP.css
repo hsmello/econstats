@@ -1,22 +1,6 @@
-.gdp_page_title {
-    margin: 20px auto;
-    font-size: 25px;
+.gdp_page {
+    width: 100%;
     text-align: center;
+    margin: 30px 0px;
+    font-size: 20px;
 }
-
-.gpdControls {
-    display: flex;
-    justify-content: center;
-}
-
-.gdp_chart {
-    margin-top: 50px;
-    justify-content: center;
-    display: flex;
-}
-
-.MuiPopover-paper {
-    background-color: tomato;
-}
-
-/* MuiMenu-paper MuiPopover-paper MuiPaper-elevation8 MuiPaper-rounded */

@@ -19,6 +19,8 @@ function App() {
       <Route exact path='/about' component={About} />
       <Route exact path='/country_analysis' component={CountryAnalysis} />
       <Route exact path='/gdp' component={GDP} />
+      <Route exact path='/inflation' component={GDP} /> {/* still going to GDP component */}
+
     </div>
   );
 }

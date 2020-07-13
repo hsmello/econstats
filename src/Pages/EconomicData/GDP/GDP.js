@@ -22,8 +22,8 @@ export default function GDP() {
     }, [])
 
     return (
-        <div className="">
-
+        <div className="gdp_page">
+            In development
         </div>
     )
 }
