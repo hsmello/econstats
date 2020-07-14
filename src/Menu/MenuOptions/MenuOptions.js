@@ -11,6 +11,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import PublicIcon from '@material-ui/icons/Public';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import EuroIcon from '@material-ui/icons/Euro';
 
 import { Link } from 'react-router-dom';
 
@@ -44,16 +45,16 @@ export default function MenuOptions() {
 
             <Divider />
             <List>
+                <Link to='/euro' className='button_link'>
+                    <ListItem button>
+                        <ListItemIcon> <EuroIcon /></ListItemIcon>
+                        <ListItemText>Euro Rates</ListItemText>
+                    </ListItem>
+                </Link>
                 <Link to='/gdp' className='button_link'>
                     <ListItem button>
                         <ListItemIcon> <TrendingUpIcon /></ListItemIcon>
                         <ListItemText>GDP</ListItemText>
-                    </ListItem>
-                </Link>
-                <Link to='/inflation' className='button_link'>
-                    <ListItem button>
-                        <ListItemIcon> <LocalAtmIcon /></ListItemIcon>
-                        <ListItemText>Inflation</ListItemText>
                     </ListItem>
                 </Link>
             </List>

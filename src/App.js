@@ -7,6 +7,7 @@ import Home from './Pages/Home/Home';
 import About from './Pages/About/About';
 import CountryAnalysis from './Pages/CountryAnalysis/CountryAnalysis';
 import GDP from './Pages/EconomicData/GDP/GDP';
+import EuroExchangeRate from './Pages/EconomicData/EuroExchangeRate/EuroExchangeRate'
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
       <Route exact path='/about' component={About} />
       <Route exact path='/country_analysis' component={CountryAnalysis} />
       <Route exact path='/gdp' component={GDP} />
-      <Route exact path='/inflation' component={GDP} /> {/* still going to GDP component */}
+      <Route exact path='/euro' component={EuroExchangeRate} />
 
     </div>
   );

@@ -5,7 +5,7 @@ import { csv } from 'd3';
 import MenuItem from '@material-ui/core/MenuItem';
 import DashboardCard from '../../Components/DashboardCard/DashboardCard';
 
-import Chart from '../../Components/AreaChart/AreaChart';
+import Chart from '../../Components/Charts/AreaChart';
 import countryAnalysisCsv from '../../Data/countryanalysis.csv';
 import axios from 'axios';
 
