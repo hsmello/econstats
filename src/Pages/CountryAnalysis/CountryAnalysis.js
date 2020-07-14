@@ -159,7 +159,7 @@ export default function CounryAnalysis() {
                     frontClass='first_front'
                     title='GDP per capita'
                     output={'$ ' + gdppc.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
-                    note='Total output divided by population'
+                    note={'Total output divided by population (' + selectedYear +')'}
                     cardIcon={<AttachMoneyIcon fontSize='inherit' />}
                 />
                 <DashboardCard
@@ -167,7 +167,7 @@ export default function CounryAnalysis() {
                     frontClass='second_front'
                     title='HDI'
                     output={hdi}
-                    note={hdi > 0.74 ? `Above this group's average` : `Below this group's average`}
+                    note={hdi > 0.74 ? `Above this group's average (` + selectedYear + `)`  : `Below this group's average (` + selectedYear + `)`}
                     cardIcon={hdi > 0.74 ?
                         <InsertEmoticonIcon fontSize='inherit' /> :
                         <SentimentVeryDissatisfiedIcon fontSize='inherit' />}
@@ -177,7 +177,7 @@ export default function CounryAnalysis() {
                     frontClass='third_front'
                     title='Life Expectancy'
                     output={lifeExp + ' years'}
-                    note='Life expectancy from birth'
+                    note={'Life expectancy from birth (' + selectedYear +')'}
                     cardIcon={<DateRangeIcon fontSize='inherit' />}
                 />
                 <DashboardCard
@@ -185,7 +185,7 @@ export default function CounryAnalysis() {
                     frontClass='fourth_front'
                     title='Population'
                     output={population + ' M'}
-                    note='Total population of a given year'
+                    note={'Total population (' + selectedYear +')'}
                     cardIcon={<AccountCircleIcon fontSize='inherit' />}
                 />
 

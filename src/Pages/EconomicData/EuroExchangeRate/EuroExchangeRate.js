@@ -63,13 +63,13 @@ export default function EuroExchangeRate() {
     return (
         <div className="eer_page">
             <div className="development">
-                In development. <br />Rates working.
+                In development. <br /> Latest values.
             </div>
             <div className="eer_page_title">
                 EURO exchange rate as of {date}
             </div>
 
-            <div className="eer_rates">
+            <div className="eer_rates bg_common bg_shadow">
 
                 {latestRatesValue ?
                     latestRatesKey.map((value, index) => {

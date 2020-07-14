@@ -14,8 +14,8 @@
 }
 
 .eer_rates {
-    background-color: white;
-    width: 90%;
+    width: 80%;
+    height: 450px;
     margin: 20px auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
