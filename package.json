@@ -1,9 +1,6 @@
 {
   "name": "econstats",
   "version": "0.1.0",
-  "engines": {
-    "node": "12.x"
-  },
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.10.2",
@@ -37,6 +34,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "engines": {
+    "node": "12.x",
+    "npm": "6.x"
   },
   "eslintConfig": {
     "extends": "react-app"
