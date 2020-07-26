@@ -122,33 +122,39 @@ export default function EuroExchangeRate() {
                     : ''}
 
             </div>
-            <div >
-                <SingleSelect
-                    handleChange={(e) => onCurrencyChange(e)}
-                    label='Currency'
-                    width='220px'
-                    value={chartCurrency}
-                    options={currencyOptions.map((currency) => (
-                        <MenuItem key={currency} value={currency}>
-                            {currency}
-                        </MenuItem>
-                    ))}
-                />
-                {isLoading ? 
-                    'Loading API data'
-                : '' 
-                }
-                {historicalChart ?
-                    <Chart
-                        data={historicalChart}
-                        // data={Object.values(historicalChart)}
-                        xAxis={dateUTC}
-                        // width='500'
-                        height='395px'
-                        type='area'
-                        color='white'
+            <div className='euro-chart-block' >
+                <div className="euro-chart-options">
+
+                    <SingleSelect
+                        handleChange={(e) => onCurrencyChange(e)}
+                        label='Currency'
+                        width='220px'
+                        value={chartCurrency}
+                        options={currencyOptions.map((currency) => (
+                            <MenuItem key={currency} value={currency}>
+                                {currency}
+                            </MenuItem>
+                        ))}
                     />
-                    : ''}
+                    {isLoading ?
+                        'Loading API data'
+                        : ''
+                    }
+                </div>
+                <div className="euro-chart">
+
+                    {historicalChart ?
+                        <Chart
+                            data={historicalChart}
+                            // data={Object.values(historicalChart)}
+                            xAxis={dateUTC}
+                            // width='500'
+                            height='395px'
+                            type='area'
+                            color='white'
+                        />
+                        : ''}
+                </div>
             </div>
 
         </div>

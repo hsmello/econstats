@@ -33,6 +33,11 @@
     width: 50%;
 }
 
+.euro-chart-options {
+    display: flex;
+    margin: 10px auto;
+}
+
 @media (max-width: 449px) {
     .eer_rates {
         grid-template-columns: repeat(1, 1fr);
