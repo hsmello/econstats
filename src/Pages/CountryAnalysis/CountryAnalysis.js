@@ -2,13 +2,13 @@ import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import './CountryAnalysis.css';
 import SingleSelect from '../../Components/Imports/SingleSelect';
 import { csv } from 'd3';
-import MenuItem from '@material-ui/core/MenuItem';
 import DashboardCard from '../../Components/DashboardCard/DashboardCard';
-
+import Loading from '../../Components/Imports/Loading'
 import Chart from '../../Components/Charts/AreaChart';
 import countryAnalysisCsv from '../../Data/countryanalysis.csv';
-import axios from 'axios';
 
+import MenuItem from '@material-ui/core/MenuItem';
+import axios from 'axios';
 import Flag from 'react-world-flags';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
@@ -248,7 +248,15 @@ export default function CounryAnalysis() {
                                 </div>
                             </div>
                             :
-                            countryInfo.id
+                            <div style={{
+                                width: '10%',
+                                // height: '100%',
+                                position: 'relative',
+                                left: '45%',
+                                top: '40%'
+                            }} >
+                            <Loading />
+                            </div>
                         }
                     </div>
                 </div>
